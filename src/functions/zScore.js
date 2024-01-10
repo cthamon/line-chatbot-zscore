@@ -1,7 +1,8 @@
 const axios = require('axios')
 
 async function zScore(replyToken, ticker) {
-
+  console.log(replyToken, ticker)
+  return
   const config = {
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
@@ -39,7 +40,7 @@ async function zScore(replyToken, ticker) {
     let C = items['trailingEBIT'] / items['quarterlyTotalAssets']
     let D = (items['price'] * items['quarterlyShareIssued']) / items['quarterlyTotalDebt']
     let E = items['trailingTotalRevenue'] / items['quarterlyTotalAssets']
-  
+    
     message = `${ticker} dated ${new Date(ts[0] * 1000)}\n`
     message += `Working Capital = ${numberWithCommas(items['quarterlyWorkingCapital'])}\n`
     message += `Retained Earnings = ${numberWithCommas(items['quarterlyRetainedEarnings'])}\n`

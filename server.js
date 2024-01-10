@@ -103,13 +103,13 @@ fastify.post("/", function (request, reply) {
     }
   }
   
-  fastify.get("/line-webhook", (request, reply) => reply.send("aaa"));
-  
-  fastify.post("/line-webhook", lineController.webhook)
-
   // The Handlebars template will use the parameter values to update the page with the chosen color
   return reply.view("/src/pages/index.hbs", params);
 });
+
+fastify.get("/line-webhook", lineController.test)
+  
+fastify.post("/line-webhook", lineController.webhook)
 
 // Run the server and report out to the logs
 fastify.listen(
