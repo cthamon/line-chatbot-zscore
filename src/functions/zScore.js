@@ -1,8 +1,7 @@
 const axios = require('axios')
 
 async function zScore(replyToken, ticker) {
-  console.log(replyToken, ticker)
-  return
+
   const config = {
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
@@ -15,7 +14,7 @@ async function zScore(replyToken, ticker) {
 
     const fs_res = await axios.get(`https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/${ticker}.BK?lang=en-US&region=US&symbol=${ticker}.BK&padTimeSeries=true&type=quarterlyWorkingCapital,quarterlyTotalAssets,quarterlyRetainedEarnings,quarterlyShareIssued,quarterlyTotalDebt,trailingTotalRevenue,trailingEBIT&merge=false&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&corsDomain=finance.yahoo.com`, config)
     const price_res = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}.BK?formatted=true&crumb=3PtFND5i2mA&lang=en-US&region=US&includeAdjustedClose=true&interval=1d&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&events=capitalGain|div|split&useYfid=true&corsDomain=finance.yahoo.com`, config)
-  
+    
     const items = {}
     const ts = []
   
