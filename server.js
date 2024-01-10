@@ -4,7 +4,7 @@
  */
 
 const path = require("path");
-const lineController = require('./src/controllers/line');
+const lineController = require('./src/controllers/line.js');
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -102,6 +102,8 @@ fastify.post("/", function (request, reply) {
       };
     }
   }
+  
+  fastify.get("/line-webhook", (request, reply) => reply.send("aaa"));
   
   fastify.post("/line-webhook", lineController.webhook)
 

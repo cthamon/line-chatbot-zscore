@@ -1,8 +1,13 @@
 const axios = require('axios')
 const { zScore } = require('../functions/zScore')
 
+exports.test = async (req, res, next) => {
+  res.send("yoyo")
+}
+
 exports.webhook = async (req, res, next) => {
   console.log(req.body)
+  return
   if (req.query.apikey !== process.env['API_KEY']) {
     return 'not from line'
   }
