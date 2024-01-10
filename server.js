@@ -4,6 +4,7 @@
  */
 
 const path = require("path");
+const lineController = require('./src/controllers/line');
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -101,6 +102,8 @@ fastify.post("/", function (request, reply) {
       };
     }
   }
+  
+  fastify.post("/line-webhook", lineController.webhook)
 
   // The Handlebars template will use the parameter values to update the page with the chosen color
   return reply.view("/src/pages/index.hbs", params);
