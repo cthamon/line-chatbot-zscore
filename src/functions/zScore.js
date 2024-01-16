@@ -99,7 +99,13 @@ async function resError(replyToken) {
     await axios.post('https://api.line.me/v2/bot/message/reply', {
       replyToken,
       messages: [
-        { type: 'text', text: 'Ticker or zscore Ticker \nex: zscore proen \nex: proen' }
+        { 
+          type: 'text', 
+          text: 'Ticker or zscore Ticker \
+                  \nex: zscore cpall \
+                  \nex: cpall \
+                  \nor Ticker does not exist' 
+        }
       ]
     }, {
       headers: {
