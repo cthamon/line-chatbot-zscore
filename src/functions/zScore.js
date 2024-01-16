@@ -93,4 +93,17 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-module.exports = { zScore }
+async function resError(replytoken) {
+  axios.post('https://api.line.me/v2/bot/message/reply', {
+      replytoken,
+      messages: [
+        { type: 'text', text: 'Ticker or zscore Ticker \nex: zscore proen' }
+      ]
+    }, {
+      headers: {
+        authorization: `Bearer ${process.env['CHANNEL_ACCESS_TOKEN']}`
+      }
+    })
+}
+
+module.exports = { zScore, resError }
