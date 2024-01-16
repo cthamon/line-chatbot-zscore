@@ -12,7 +12,7 @@ async function zScore(replyToken, ticker) {
 
   try {
     console.log(`https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/${ticker}.BK?lang=en-US&region=US&symbol=${ticker}.BK&padTimeSeries=true&type=quarterlyWorkingCapital,quarterlyTotalAssets,quarterlyRetainedEarnings,quarterlyShareIssued,quarterlyTotalDebt,trailingTotalRevenue,trailingEBIT&merge=false&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&corsDomain=finance.yahoo.com`)
-    const fs_res = await axios.get(`https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/${ticker}.BK?lang=en-US&region=US&symbol=${ticker}.BK&padTimeSeries=true&type=quarterlyWorkingCapital,quarterlyTotalAssets,quarterlyRetainedEarnings,quarterlyShareIssued,quarterlyTotalDebt,trailingTotalRevenue,trailingEBIT&merge=false&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&corsDomain=finance.yahoo.com`, config)
+    const fs_res = await axios.get(`https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/${ticker}.BK?lang=en-US&region=US&symbol=${ticker}.BK&padTimeSeries=true&type=quarterlyWorkingCapital,quarterlyTotalAssets,quarterlyRetainedEarnings,quarterlyShareIssued,quarterlyTotalLiabilitiesNetMinorityInterest,quarterlyTotalDebt,trailingTotalRevenue,trailingEBIT&merge=false&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&corsDomain=finance.yahoo.com`, config)
     const price_res = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}.BK?formatted=true&crumb=3PtFND5i2mA&lang=en-US&region=US&includeAdjustedClose=true&interval=1d&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&events=capitalGain|div|split&useYfid=true&corsDomain=finance.yahoo.com`, config)
     
     const items = {}
@@ -37,7 +37,8 @@ async function zScore(replyToken, ticker) {
     let A = items['quarterlyWorkingCapital'] / items['quarterlyTotalAssets']
     let B = items['quarterlyRetainedEarnings'] / items['quarterlyTotalAssets']
     let C = items['trailingEBIT'] / items['quarterlyTotalAssets']
-    let D = (items['price'] * items['quarterlyShareIssued']) / items['quarterlyTotalDebt']
+    // let D = (items['price'] * items['quarterlyShareIssued']) / items['quarterlyTotalDebt']
+    let D = (items['price'] * items['quarterlyShareIssued']) / items['quarterlyTotalLiabilitiesNetMinorityInterest']
     let E = items['trailingTotalRevenue'] / items['quarterlyTotalAssets']
     
     message = `${ticker} dated ${new Date(ts[0] * 1000)}\n`
@@ -46,7 +47,8 @@ async function zScore(replyToken, ticker) {
     message += `EBIT = ${numberWithCommas(items['trailingEBIT'])}\n`
     message += `Revenue = ${numberWithCommas(items['trailingTotalRevenue'])}\n`
     message += `T. Asset = ${numberWithCommas(items['quarterlyTotalAssets'])}\n`
-    message += `T. Debt = ${numberWithCommas(items['quarterlyTotalDebt'])}\n`
+    // message += `T. Debt = ${numberWithCommas(items['quarterlyTotalDebt'])}\n`
+    message += `T. Debt = ${numberWithCommas(items['quarterlyTotalLiabilitiesNetMinorityInterest'])}\n`
     message += `Market Cap. = ${numberWithCommas(Math.round(items['price'] * items['quarterlyShareIssued']))}\n-----\n`
     message += `X1 = ${Math.round(A*10000)/10000} (WC/TA)\n`
     message += `X2 = ${Math.round(B*10000)/10000} (RE/TA)\n`
