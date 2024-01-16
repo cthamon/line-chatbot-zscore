@@ -56,7 +56,8 @@ async function zScore(replyToken, ticker) {
     message += `ZScore = ${Math.round((1.2*A + 1.4*B + 3.3*C + 0.6*D + 1.0*E)*10000)/10000}`
 
   } catch {
-    message = 'บ้าหราา ถามไรเนี่ย'
+    // message = 'Ticker not exist'
+    resError(replyToken)
   }
 
   if (replyToken) {
@@ -93,17 +94,19 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-async function resError(replytoken) {
-  axios.post('https://api.line.me/v2/bot/message/reply', {
-      replytoken,
+async function resError(replyToken) {
+  if (replyToken) {
+    await axios.post('https://api.line.me/v2/bot/message/reply', {
+      replyToken,
       messages: [
-        { type: 'text', text: 'Ticker or zscore Ticker ex: zscore proen' }
+        { type: 'text', text: 'Ticker or zscore Ticker \nex: zscore proen \nex: proen' }
       ]
     }, {
       headers: {
         authorization: `Bearer ${process.env['CHANNEL_ACCESS_TOKEN']}`
       }
     })
+  }
 }
 
 module.exports = { zScore, resError }

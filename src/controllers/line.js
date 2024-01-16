@@ -13,7 +13,9 @@ exports.webhook = async (req, res, next) => {
   }
   
   for (const event of req.body.events) {
-    if (event.message.text.split(' ')[0].toLowerCase() === 'zscore') {
+    if (event.message.text.split(' ').length === 1) {
+      zScore(event.replyToken, event.message.text.split(' ')[0].toUpperCase())
+    } else if (event.message.text.split(' ')[0].toLowerCase() === 'zscore') {
       zScore(event.replyToken, event.message.text.split(' ')[1].toUpperCase())
     } else {
       resError(event.replyToken)
