@@ -11,7 +11,7 @@ async function zScore(replyToken, ticker) {
   let message = "";
 
   try {
-
+    console.log(`https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/${ticker}.BK?lang=en-US&region=US&symbol=${ticker}.BK&padTimeSeries=true&type=quarterlyWorkingCapital,quarterlyTotalAssets,quarterlyRetainedEarnings,quarterlyShareIssued,quarterlyTotalDebt,trailingTotalRevenue,trailingEBIT&merge=false&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&corsDomain=finance.yahoo.com`)
     const fs_res = await axios.get(`https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/${ticker}.BK?lang=en-US&region=US&symbol=${ticker}.BK&padTimeSeries=true&type=quarterlyWorkingCapital,quarterlyTotalAssets,quarterlyRetainedEarnings,quarterlyShareIssued,quarterlyTotalDebt,trailingTotalRevenue,trailingEBIT&merge=false&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&corsDomain=finance.yahoo.com`, config)
     const price_res = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}.BK?formatted=true&crumb=3PtFND5i2mA&lang=en-US&region=US&includeAdjustedClose=true&interval=1d&period1=850262400&period2=${new Date().setHours(10, 0, 0, 0) / 1000}&events=capitalGain|div|split&useYfid=true&corsDomain=finance.yahoo.com`, config)
     
