@@ -48,11 +48,11 @@ async function zScore(replyToken, ticker) {
     message += `T. Asset = ${numberWithCommas(items['quarterlyTotalAssets'])}\n`
     message += `T. Debt = ${numberWithCommas(items['quarterlyTotalDebt'])}\n`
     message += `Market Cap. = ${numberWithCommas(Math.round(items['price'] * items['quarterlyShareIssued']))}\n-----\n`
-    message += `X1 = ${Math.round(A*10000)/10000}\n`
-    message += `X2 = ${Math.round(B*10000)/10000}\n`
-    message += `X3 = ${Math.round(C*10000)/10000}\n`
-    message += `X4 = ${Math.round(D*10000)/10000}\n`
-    message += `X5 = ${Math.round(E*10000)/10000}\n----\n`
+    message += `X1 = ${Math.round(A*10000)/10000} (WC/TA)\n`
+    message += `X2 = ${Math.round(B*10000)/10000} (RE/TA)\n`
+    message += `X3 = ${Math.round(C*10000)/10000} (EBIT/TA)\n`
+    message += `X4 = ${Math.round(D*10000)/10000} (MCAP/TD)\n`
+    message += `X5 = ${Math.round(E*10000)/10000} (S/TA)\n----\n`
     message += `ZScore = ${Math.round((1.2*A + 1.4*B + 3.3*C + 0.6*D + 1.0*E)*10000)/10000}`
 
   } catch {
@@ -101,7 +101,7 @@ async function resError(replyToken) {
       messages: [
         { 
           type: 'text', 
-          text: 'Ticker or zscore Ticker \
+          text: 'Ticker or zscore Ticker (check spacing) \
                   \nex: zscore cpall \
                   \nex: cpall \
                   \nor Ticker does not exist' 
